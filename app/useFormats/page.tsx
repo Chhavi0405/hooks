@@ -1,47 +1,74 @@
-import { format } from "date-fns";
+import { format, getTime } from "date-fns";
 
-export default function useFormat (){
+export default function useFormat() {
+  const getDate = (date?: string | number | undefined) => {
+    const curDate = date ? new Date(date) : new Date();
+    console.log(curDate, "curdate");
+    return curDate;
+  };
 
-    const getDate = (date?: string | number | undefined) => {
-        const curDate = date ? new Date(date) : new Date();
-        console.log(curDate,"curdate")
-        return curDate;
-      };
-    
-    const getMMddyyyy = (date?:any)=>{
-        const formatDate = format(date,'MM-dd-yyyy')
-        console.log(formatDate,"formatDated")
-        return formatDate;
-    }
+  const getMMddyyyy = (date?: number | Date | string) => {
+    const formatDate = format(date as Date, "MM-dd-yyyy");
+    console.log(formatDate, "formatDated");
+    return formatDate;
+  };
 
-    const getddMMyy =(date?:any)=>{
-        const formatDate2 = format(date,'dd-MM-yy')
-        console.log(formatDate2,"formatDate2")
-        return formatDate2
-    }
-    const getDay =(date?:any)=>{
-      const day = format(date,'dd')
-      console.log(day)
-      return day;
-    
-    }
+  const getddMMyy = (date?: number | Date | string) => {
+    const formatDate2 = format(date as Date, "dd-MM-yy");
+    console.log(formatDate2, "formatDate2");
+    return formatDate2;
+  };
 
-    const getMonth =(date?:any)=>{
-        const month = format(date,'MM')
-        console.log(month,"month")
-        return month;
-      
-      }
-const getYear =(date?:any)=>{
-    const year =format(date,'yyyy')
-    console.log(year,"year")
+  const getyyyyMMdd = (date?: number | Date | string) => {
+    const formatDate3 = format(date as Date, "yyyy-MM-dd");
+    console.log(formatDate3, "formatDate3");
+    return formatDate3;
+  };
+
+  const getDay = (date?: number | Date | string) => {
+    const day = format(date as Date, "dd");
+    console.log(day);
+    return day;
+  };
+
+  const getMonth = (date?: number | Date | string) => {
+    const month = format(date as Date, "MM");
+    console.log(month, "month");
+    return month;
+  };
+  const getYear = (date?: number | Date | string) => {
+    const year = format(date as Date, "yyyy");
+    console.log(year, "year");
     return year;
-}
+  };
 
+  const getTimeInHHMM = (date?: number | Date | string | undefined) => {
+    const time = getTime(
+      date instanceof Date ? date : new Date(date || Date.now())
+    );
+    const formattedTime = format(time, "HH:mm"); 
+    console.log(formattedTime, "time");
+    return formattedTime;
+  };
 
+  const getTimeInHHMMSS =(date?: number | Date | string | undefined) => {
+    const time = getTime(
+      date instanceof Date ? date : new Date(date || Date.now())
+    );
+    const formattedTime = format(time, "HH:mm:ss"); 
+    console.log(formattedTime, "time");
+    return formattedTime;
+  };
 
-    return{getDate,getMMddyyyy,getddMMyy,getDay,getMonth,getYear}
-
-
-    
+  return {
+    getDate,
+    getMMddyyyy,
+    getddMMyy,
+    getDay,
+    getMonth,
+    getYear,
+    getTimeInHHMM,
+    getTimeInHHMMSS,
+    getyyyyMMdd
+  };
 }
