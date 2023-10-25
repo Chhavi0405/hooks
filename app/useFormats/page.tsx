@@ -24,6 +24,11 @@ export default function useFormat() {
     console.log(formatDate3, "formatDate3");
     return formatDate3;
   };
+  const getyyyyMMMMdd = (date?: number | Date | string) => {
+    const formatDate4 = format(date as Date, "yyyy-MMMM-dd");
+    console.log(formatDate4, "formatDate4");
+    return formatDate4;
+  };
 
   const getDay = (date?: number | Date | string) => {
     const day = format(date as Date, "dd");
@@ -69,6 +74,7 @@ export default function useFormat() {
     getYear,
     getTimeInHHMM,
     getTimeInHHMMSS,
-    getyyyyMMdd
+    getyyyyMMdd,
+    getyyyyMMMMdd
   };
 }
