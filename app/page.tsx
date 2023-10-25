@@ -20,7 +20,11 @@ export default function Home() {
   } = useFormat();
   const {convertTimeTo12HourTime,convertTimeTo24HourTime,getTimeAndDate} = useConversion()
   const [input, setInput] = useState<string | number>();
+  const [isDay,setIsDay] = useState<string | number>();
+  const [isFullYearFormat,setIsFullYearFormat]=useState<string | number>();
   const [inputDay, setInputDay] = useState<string | number>();
+  const [isMonth,setIsMonth]  = useState<string|number|Date>()
+  const [isFullTime,setIsFullTime] = useState<string|number|Date>()
   const [isTime, setIsTime] = useState<number | Date | string>();
   const [isMonthFull,setIsMonthFull]  = useState<string|number|Date>()
   const [is12hrs,setIs12Hrs] = useState <number|string|Date>()
@@ -49,39 +53,53 @@ export default function Home() {
   const handleTimeDate =()=>{
     setisTimeDate(getTimeAndDate(getDate()))
   }
-  // console.log(input,"input")
+  const handleGetDay=()=>{
+    setIsDay(getMMddyyyy(getDate("2023-05-23")))
+  }
+  const handleddMMyy =()=>{
+    setIsFullYearFormat(getyyyyMMdd(getDate()))
+  }
+  const handleMonth =()=>{
+    setIsMonth(getMonth(getDate()))
+  }
+  const handleFullTime =()=>{
+    setIsFullTime(getTimeInHHMMSS(getDate()))
+  }
   return (
     <>
       <h2>Custom Hooks</h2>
 <br/>
-      <button onClick={() => getMMddyyyy(getDate("2023-05-23"))}>
+      <button onClick={() =>handleGetDay() }>
         format Date
-      </button>
+      </button> &nbsp; 
+      {isDay}
       <br />
       <button onClick={() => getddMMyy(getDate())}>
         format Date2 in ddMMyy
       </button>
       <br />
-      <button onClick={() => getyyyyMMdd(getDate())}>
+      <button onClick={() =>handleddMMyy() }>
         format Date3 in yyyyMMdd
-      </button>
+      </button> &nbsp;
+       {isFullYearFormat}
       <br />
-      {/* <button onClick={()=>getDay(getDate())}>getday</button> */}
       <button onClick={() => handleDay()}>getday</button>
-      &nbsp;{inputDay}
+      &nbsp;
+      {inputDay}
       <br />
-      <button onClick={() => getMonth(getDate())}>getMonth</button>
-      <br />
-      {/* <button onClick={()=>getYear(getDate())}>getYear</button> */}
+      <button onClick={() => handleMonth}>getMonth</button>
+      <br /> &nbsp; 
+      {isMonth}
       <button onClick={() => handleFormatdate()}>getYear</button>
       &nbsp;{input}
       <br />
       <button onClick={() => handleGetTime()}>get Time In HH:MM</button>
       &nbsp;{isTime}
       <br />
-      <button onClick={() => getTimeInHHMMSS(getDate())}>
+      <button onClick={() => handleFullTime()}>
         time in HH:MM:SS
       </button>
+      &nbsp;{isFullTime}
       <br/>
       <button onClick={()=>handleFullMonth()}>get full month</button>
      &nbsp; {isMonthFull}
