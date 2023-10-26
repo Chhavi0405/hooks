@@ -166,10 +166,19 @@ const handleFormatDate2 =()=>{
         <button className=" border-2 mb-3" onClick={() => handleAsc()}>Ascending</button>
         &nbsp;
         <ul>
-          <li> 
-          <p className=" space-x-4 text-pink-950">{isAsc?.toString()} </p>
-          </li>
+          
+         { isAsc?.map((data,index:number)=>{
+          
+          return(
+            <li className=" space-x-4 text-pink-950" key={index}> 
+            {data.toString()}
+            </li>
+          )
+       
+         })  }
+      
         </ul>
+
 
 
         <br />
@@ -177,9 +186,17 @@ const handleFormatDate2 =()=>{
         <button className=" border-2 mb-3" onClick={() => handleDesc()}>Descending</button>
         &nbsp;
         <ul>
-          <li className=" space-x-4 text-pink-950"> 
-         { isDesc?.toString()  }
-           </li>
+          
+         { isDesc?.map((data,index:number)=>{
+          
+          return(
+            <li className=" space-x-4 text-pink-950" key={index}> 
+            {data.toString()}
+            </li>
+          )
+       
+         })  }
+      
         </ul>
 
       </div>
