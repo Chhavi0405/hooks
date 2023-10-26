@@ -23,7 +23,7 @@ export default function Home() {
     useConversion();
   const { sortDateAsc, sortDateDesc } = UseDateSorting();
 
-  const { isAfterDate, isBeforeDate, isEqualDate ,isExistsDate,maxDate,minDate,futureDate,pastDate,validDate} = useValidation();
+  const { isAfterDate, isBeforeDate, isEqualDate ,isExistsDate,maxDate,minDate,futureDate,pastDate,validDate,isValidDate} = useValidation();
 
   const [input, setInput] = useState<string | number>("");
   const [isDay, setIsDay] = useState<string | number>("");
@@ -47,7 +47,7 @@ export default function Home() {
   const [isMin,setIsMin] = useState<Date>()
   const [isFuture,setIsFuture] = useState<boolean | string>()
   const [isPast,setIsPast] = useState<boolean | string>()
-  const [isValid,setIsValid]= useState<boolean|string>()
+  const [isValid,setIsValid]= useState<boolean|string >()
   const dates = [
     new Date(1995, 6, 2),
     new Date(1997, 6, 2),
@@ -134,10 +134,12 @@ export default function Home() {
   }
 
   const handleValidDate =()=>{
-    const checkDate = validDate(getDate('201611'))
+    const checkDate = isValidDate(201478, 1, 31)
+    console.log(checkDate,"checkdate")
     setIsValid(checkDate)
   }
-  
+  const result = getYear(new Date(20144, 6, 2))
+  console.log(result,"result")
   return (
     <>
       <div className="px-4 py-4 ">
