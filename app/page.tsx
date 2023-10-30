@@ -5,6 +5,8 @@ import useFormat from "./useFormats/page";
 import useConversion from "./useConversion/page";
 import UseDateSorting from "./useDateSorting/page";
 import useValidation from "./useValidation/page";
+import useDate from "./useDate/page";
+
 
 export default function Home() {
   const {
@@ -34,6 +36,9 @@ export default function Home() {
     pastDate,
     checkValidation,
   } = useValidation();
+
+  const {intlTimeZone} = useDate();
+
   const [selectedDate, setSelectedDate] = useState<string>();
   const [input, setInput] = useState<string | number>("");
   const [isDay, setIsDay] = useState<string | number>("");
@@ -60,6 +65,7 @@ export default function Home() {
   const [isFuture, setIsFuture] = useState<boolean | string>();
   const [isPast, setIsPast] = useState<boolean | string>();
   const [isValid, setIsValid] = useState<boolean | string>();
+  const [isTimeZone,setIsTimeZone] = useState<any>()
   const dates = [
     new Date(1995, 6, 2),
     new Date(1997, 6, 2),
@@ -155,6 +161,12 @@ export default function Home() {
     setSelectedDate(event.target.value);
   };
  
+  const handletimeZone =()=>{
+ const dateTime = intlTimeZone(new Date())
+    setIsTimeZone(dateTime)
+  }
+  console.log(isTimeZone,"isTimezone")
+
 
   return (
     <>
@@ -298,6 +310,16 @@ export default function Home() {
         </button>
         <p className=" space-x-4 text-pink-950">{isValid?.toString()}</p>
       </div>
+
+      <div className="px-4">
+        <h3 className="text-xl  font-medium mb-2">Date Select</h3>
+
+
+         <button className="border-2 mb-3" onClick={()=>handletimeZone()}>timezone</button>
+         <p className="space-x-4 text-pink-950">{isTimeZone}</p>
+      </div>
     </>
   );
 }
+
+
