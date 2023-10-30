@@ -1,4 +1,15 @@
-import { isAfter, isBefore, isEqual, isExists, isFuture, isPast, isValid, max, min } from "date-fns";
+import {
+  isAfter,
+  isBefore,
+  isEqual,
+  isExists,
+  isFuture,
+  isPast,
+  isValid,
+  max,
+  min,
+} from "date-fns";
+import { format } from "path";
 
 export default function useValidation() {
   const isAfterDate = (date: Date | number, dateToCompare: Date | number) => {
@@ -16,48 +27,35 @@ export default function useValidation() {
     return checkIsEqualDate;
   };
 
-  const isExistsDate =(year:number,month:number,day:number)=>{
-    const checkIsExistsDate =isExists(year,month,day)
+  const isExistsDate = (year: number, month: number, day: number) => {
+    const checkIsExistsDate = isExists(year, month, day);
     return checkIsExistsDate;
-  }
-  
-  const maxDate = (date:Date[]|number[])=>{
-    const findMaxDate = max(date)
+  };
+
+  const maxDate = (date: Date[] | number[]) => {
+    const findMaxDate = max(date);
     return findMaxDate;
-  }
+  };
 
-  const minDate = (date:Date[]|number[])=>{
-    const findMinDate = min(date)
+  const minDate = (date: Date[] | number[]) => {
+    const findMinDate = min(date);
     return findMinDate;
-  }
+  };
 
-  const futureDate =(date:Date|number)=>{
-    const checkFutureDate = isFuture(date)
+  const futureDate = (date: Date | number) => {
+    const checkFutureDate = isFuture(date);
     return checkFutureDate;
-  }
-  
-  const pastDate =(date:Date|number)=>{
-    const checkPastDate = isPast(date)
+  };
+
+  const pastDate = (date: Date | number) => {
+    const checkPastDate = isPast(date);
     return checkPastDate;
-  }
-
-  const validDate =(date:any)=>{
-    const checkValidDate = isValid(date)
-    return checkValidDate
-  }
-
-  const isValidDate=(year: number, month: number, day: number )=> {
-    var d = new Date(year, month-1, day);
-    console.log(d,"dateeeee",d.getFullYear() ,"yearr", d.getMonth(),"mon",d.getDate(),"day")
-    if ( d.getFullYear() == year  && d.getMonth()+1 == month &&  d.getDate() == day  ) {
-      // console.iflog("first")
-      
-        return true;
-      
-    }
-    // console.log("second")
-    return false;
-}
+  };
+  const checkValidation = (date: any) => {
+    const checkDate = new Date(date);
+    const verifydate = isValid(checkDate);
+    return verifydate;
+  };
 
   return {
     isAfterDate,
@@ -68,7 +66,6 @@ export default function useValidation() {
     minDate,
     futureDate,
     pastDate,
-    validDate,
-    isValidDate
+    checkValidation,
   };
 }

@@ -3,9 +3,6 @@ import { format, getTime } from "date-fns";
 export default function useFormat() {
   const getDate = (date?: string | number | undefined) => {
     const curDate = date ? new Date(date) : new Date();
-    // const formattedDate =format(curDate,'dd-MM-yyyy')
-    console.log(curDate,"formatedSsS")
-    console.log(format(curDate,'dd-MM-yyyy'),"curDate")
     return curDate;
   };
 
@@ -37,24 +34,33 @@ export default function useFormat() {
     const month = format(date as Date, "MM");
     return month;
   };
-  const getYear = (date?: number | Date | string) => {
-    const year = format(date as Date, "yyyy");
-    return year;
+  const getYear = (date?: number | Date | string | any) => {
+    let newDate = new Date(date)
+    const year = format(newDate, "yyyy");
+    if (year.length > 4) {
+      return ("Invalid")
+    }
+
+    else {
+      return year
+    }
+    //  return year
+
   };
 
   const getTimeInHHMM = (date?: number | Date | string | undefined) => {
     const time = getTime(
       date instanceof Date ? date : new Date(date || Date.now())
     );
-    const formattedTime = format(time, "HH:mm  "); 
+    const formattedTime = format(time, "HH:mm  ");
     return formattedTime;
   };
 
-  const getTimeInHHMMSS =(date?: number | Date | string | undefined) => {
+  const getTimeInHHMMSS = (date?: number | Date | string | undefined) => {
     const time = getTime(
       date instanceof Date ? date : new Date(date || Date.now())
     );
-    const formattedTime = format(time, "HH:mm:ss"); 
+    const formattedTime = format(time, "HH:mm:ss");
     return formattedTime;
   };
 
