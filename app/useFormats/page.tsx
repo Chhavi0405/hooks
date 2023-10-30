@@ -34,7 +34,7 @@ export default function useFormat() {
     const month = format(date as Date, "MM");
     return month;
   };
-  const getYear = (date?: number | Date | string | any) => {
+  const getYear =(date?: any) =>  {
     let newDate = new Date(date)
     const year = format(newDate, "yyyy");
     if (year.length > 4) {

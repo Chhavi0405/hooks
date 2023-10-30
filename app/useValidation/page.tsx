@@ -51,13 +51,14 @@ export default function useValidation() {
     const checkPastDate = isPast(date);
     return checkPastDate;
   };
-  const checkValidation = (date: any) => {
+
+  const checkValidation =(date: Date | number): boolean => {
     const checkDate = new Date(date);
     const verifydate = isValid(checkDate);
     return verifydate;
   };
 
-  return {
+  return {  
     isAfterDate,
     isBeforeDate,
     isEqualDate,

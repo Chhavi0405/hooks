@@ -147,13 +147,14 @@ export default function Home() {
   };
 
   const handleValidDate = () => {
-    let validDated: any = checkValidation(selectedDate);
+    let validDated = checkValidation(selectedDate);
     setIsValid(validDated);
   };
 
   const handleDateChange = (event: any) => {
     setSelectedDate(event.target.value);
   };
+ 
 
   return (
     <>
@@ -165,8 +166,8 @@ export default function Home() {
       <input
         type="Date"
         value={selectedDate}
-        name="selected"
         onChange={handleDateChange}
+        onKeyDown={(e) => e.preventDefault()}
       />
       <div className="px-4 py-4 ">
         <h2 className="text-xl font-medium mb-2">Date Formats</h2>
