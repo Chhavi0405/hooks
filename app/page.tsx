@@ -23,8 +23,18 @@ export default function Home() {
     useConversion();
   const { sortDateAsc, sortDateDesc } = UseDateSorting();
 
-  const { isAfterDate, isBeforeDate, isEqualDate ,isExistsDate,maxDate,minDate,futureDate,pastDate,validDate,isValidDate} = useValidation();
-
+  const {
+    isAfterDate,
+    isBeforeDate,
+    isEqualDate,
+    isExistsDate,
+    maxDate,
+    minDate,
+    futureDate,
+    pastDate,
+    checkValidation,
+  } = useValidation();
+  const [selectedDate, setSelectedDate] = useState<string>();
   const [input, setInput] = useState<string | number>("");
   const [isDay, setIsDay] = useState<string | number>("");
   const [isFullYearFormat, setIsFullYearFormat] = useState<string | number>("");
@@ -42,12 +52,14 @@ export default function Home() {
   const [checkIsAfter, setCheckIsAfter] = useState<boolean | string>();
   const [checkIsBefore, setCheckIsBefore] = useState<boolean | string>();
   const [checkIsEqual, setCheckIsEqual] = useState<boolean | string>();
-  const [checkIsExists,setCheckIsExists] = useState<boolean|string|number>()
-  const [isMax,setIsMax] = useState<Date>()
-  const [isMin,setIsMin] = useState<Date>()
-  const [isFuture,setIsFuture] = useState<boolean | string>()
-  const [isPast,setIsPast] = useState<boolean | string>()
-  const [isValid,setIsValid]= useState<boolean|string >()
+  const [checkIsExists, setCheckIsExists] = useState<
+    boolean | string | number
+  >();
+  const [isMax, setIsMax] = useState<Date>();
+  const [isMin, setIsMin] = useState<Date>();
+  const [isFuture, setIsFuture] = useState<boolean | string>();
+  const [isPast, setIsPast] = useState<boolean | string>();
+  const [isValid, setIsValid] = useState<boolean | string>();
   const dates = [
     new Date(1995, 6, 2),
     new Date(1997, 6, 2),
@@ -66,17 +78,18 @@ export default function Home() {
   const handleDesc = () => {
     setIsDesc(sortDateDesc(dates));
   };
-  const handleMaxDate =()=>{
-    setIsMax(maxDate(dates))
-  }
-
-  const handleMinDate =()=>{
-    setIsMin(minDate(dates))
-  }
-  const handleFormatdate = () => {
-    setInput(getYear(getDate("02-05-232398")));
+  const handleMaxDate = () => {
+    setIsMax(maxDate(dates));
   };
-console.log(input,"qwerty")
+
+  const handleMinDate = () => {
+    setIsMin(minDate(dates));
+  };
+  const handleFormatdate = () => {
+    let yearFetch = getYear(selectedDate);
+    setInput(yearFetch);
+  };
+
   const handleDay = () => {
     setInputDay(getDay(getDate()));
   };
@@ -120,36 +133,42 @@ console.log(input,"qwerty")
     const validValue = isEqualDate(getDate(), getDate("2024-05-23"));
     setCheckIsEqual(validValue ? "true" : "false");
   };
-  const handleExistsDate =()=>{
-    const validExistDate = isExistsDate(2023,3,31)
-    setCheckIsExists(validExistDate? "true" : "false");
-  }
-  const handleFutureDate =()=>{
-    const validFutureDate = futureDate(getDate("2024-05-23"))
-    setIsFuture(validFutureDate? "true" : "false");
-  }
-  const handlePastDate =()=>{
-    const validPastDate = pastDate(getDate("2024-05-23"))
-    setIsPast(validPastDate? "true" : "false");
-  }
+  const handleExistsDate = () => {
+    const validExistDate = isExistsDate(2023, 3, 31);
+    setCheckIsExists(validExistDate ? "true" : "false");
+  };
+  const handleFutureDate = () => {
+    const validFutureDate = futureDate(getDate("2024-05-23"));
+    setIsFuture(validFutureDate ? "true" : "false");
+  };
+  const handlePastDate = () => {
+    const validPastDate = pastDate(getDate("2024-05-23"));
+    setIsPast(validPastDate ? "true" : "false");
+  };
 
-  const handleValidDate =()=>{
-    const checkDate = isValidDate(201478, 1, 31)
-    console.log(checkDate,"checkdate")
-    setIsValid(checkDate)
-  }
-  const result = getYear(new Date(2014, 6, 2))
-  if(result.length > 4){
-    console.log("greater4")
-  }
-  else {  console.log("result")}
+  const handleValidDate = () => {
+    let validDated: any = checkValidation(selectedDate);
+    setIsValid(validDated);
+  };
+
+  const handleDateChange = (event: any) => {
+    setSelectedDate(event.target.value);
+  };
 
   return (
     <>
+      <h2 className="text-xl text-center italic font-extrabold text-red-950 mb-4">
+        Custom Hooks
+      </h2>
+      <label>Enter a date</label>
+      &nbsp;
+      <input
+        type="Date"
+        value={selectedDate}
+        name="selected"
+        onChange={handleDateChange}
+      />
       <div className="px-4 py-4 ">
-        <h2 className="text-xl text-center italic font-extrabold text-red-950 mb-4">
-          Custom Hooks
-        </h2>
         <h2 className="text-xl font-medium mb-2">Date Formats</h2>
         <button
           className=" border-2 mb-3  space-x-4"
@@ -191,7 +210,6 @@ console.log(input,"qwerty")
         </button>
         <p className=" space-x-4 text-pink-950">{isMonthFull.toString()}</p>
       </div>
-
       <div className="px-4">
         <h2 className="text-xl font-medium mb-2">Time Conversion</h2>
 
@@ -213,7 +231,6 @@ console.log(input,"qwerty")
         </button>
         <p className=" space-x-4 text-pink-950">{isTimeDate.toString()}</p>
       </div>
-
       <div className="px-4">
         <h3 className="text-xl  font-medium mb-2">Sorting</h3>
         <button className=" border-2 mb-3" onClick={() => handleAsc()}>
@@ -221,7 +238,7 @@ console.log(input,"qwerty")
         </button>
         <ul>
           <li>
-            <p >{isAsc?.toString()} </p>
+            <p>{isAsc?.toString()} </p>
           </li>
         </ul>
         <button className=" border-2 mb-3" onClick={() => handleDesc()}>
@@ -232,7 +249,6 @@ console.log(input,"qwerty")
           <li className=" space-x-4 text-pink-950">{isDesc?.toString()}</li>
         </ul>
       </div>
-
       <div className="px-4">
         <h3 className="text-xl  font-medium mb-2">Date Validation</h3>
 
@@ -272,17 +288,14 @@ console.log(input,"qwerty")
         <p className=" space-x-4 text-pink-950">{isFuture}</p>
 
         <button className=" border-2 mb-3" onClick={() => handlePastDate()}>
-        Past Date
+          Past Date
         </button>
         <p className=" space-x-4 text-pink-950">{isPast}</p>
 
         <button className=" border-2 mb-3" onClick={() => handleValidDate()}>
-         Valid Date
+          valid Date
         </button>
         <p className=" space-x-4 text-pink-950">{isValid?.toString()}</p>
-
-
-
       </div>
     </>
   );
