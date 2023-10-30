@@ -74,9 +74,9 @@ export default function Home() {
     setIsMin(minDate(dates))
   }
   const handleFormatdate = () => {
-    setInput(getYear(getDate()));
+    setInput(getYear(getDate("02-05-232398")));
   };
-
+console.log(input,"qwerty")
   const handleDay = () => {
     setInputDay(getDay(getDate()));
   };
@@ -97,7 +97,7 @@ export default function Home() {
     setisTimeDate(getTimeAndDate(getDate()));
   };
   const handleGetDay = () => {
-    setIsDay(getMMddyyyy(getDate("2023-05-23")));
+    setIsDay(getMMddyyyy(getDate("202343-05-23")));
   };
   const handleddMMyy = () => {
     setIsFullYearFormat(getyyyyMMdd(getDate()));
@@ -138,8 +138,12 @@ export default function Home() {
     console.log(checkDate,"checkdate")
     setIsValid(checkDate)
   }
-  const result = getYear(new Date(20144, 6, 2))
-  console.log(result,"result")
+  const result = getYear(new Date(2014, 6, 2))
+  if(result.length > 4){
+    console.log("greater4")
+  }
+  else {  console.log("result")}
+
   return (
     <>
       <div className="px-4 py-4 ">
