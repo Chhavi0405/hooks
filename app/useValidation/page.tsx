@@ -46,6 +46,19 @@ export default function useValidation() {
     return checkValidDate
   }
 
+  const isValidDate=(year: number, month: number, day: number )=> {
+    var d = new Date(year, month-1, day);
+    console.log(d,"dateeeee",d.getFullYear() ,"yearr", d.getMonth(),"mon",d.getDate(),"day")
+    if ( d.getFullYear() == year  && d.getMonth()+1 == month &&  d.getDate() == day  ) {
+      // console.iflog("first")
+      
+        return true;
+      
+    }
+    // console.log("second")
+    return false;
+}
+
   return {
     isAfterDate,
     isBeforeDate,
@@ -55,6 +68,7 @@ export default function useValidation() {
     minDate,
     futureDate,
     pastDate,
-    validDate
+    validDate,
+    isValidDate
   };
 }

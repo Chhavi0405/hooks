@@ -3,6 +3,9 @@ import { format, getTime } from "date-fns";
 export default function useFormat() {
   const getDate = (date?: string | number | undefined) => {
     const curDate = date ? new Date(date) : new Date();
+    // const formattedDate =format(curDate,'dd-MM-yyyy')
+    console.log(curDate,"formatedSsS")
+    console.log(format(curDate,'dd-MM-yyyy'),"curDate")
     return curDate;
   };
 
@@ -43,7 +46,7 @@ export default function useFormat() {
     const time = getTime(
       date instanceof Date ? date : new Date(date || Date.now())
     );
-    const formattedTime = format(time, "HH:mm"); 
+    const formattedTime = format(time, "HH:mm  "); 
     return formattedTime;
   };
 
